@@ -5,7 +5,7 @@ routes.get('/', (req, res) => {
   `);
 });
 routes.use('/user', require('./user'));
-//routes.use('/patient', require('./patient'));
+routes.use('/patient', require('./patient'));
 //routes.use('/invoice', require('./invoice'));
 //routes.use('/appointment', require('./appointment'));
 routes.use('/api-docs', require('./doc'));
