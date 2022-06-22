@@ -1,7 +1,7 @@
 const routes = require('express').Router();
 
 routes.get('/', (req, res) => {
-  res.send(`Welcome to this Medical Appointment API. Use this routes: /user, /invoice, /patient and /appointment. More information in /api-docs
+  res.send(`Welcome to our API. Use this routes: /user, /invoice, /patient and /appointment. More information in /api-docs
   `);
 });
 //routes.use('/user', require('./user'));
