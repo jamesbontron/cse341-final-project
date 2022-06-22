@@ -22,13 +22,13 @@ routes.use((req, res, next) => {
   next();
 });
 
-// Get all Appointments
+// Get all users
 routes.get('/', (req, res) => {
-  const appointment = dbconnection.getAppointment().find();
+  const invoice = dbconnection.getInvoice().find();
 
-  appointment.toArray().then((documents) => {
+  invoice.toArray().then((documents) => {
     res.status(200).json(documents);
-    console.log('All appointments shown');
+    console.log('All users shown');
   });
 });
 /*
