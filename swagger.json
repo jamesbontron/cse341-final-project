@@ -1,0 +1,26 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Medical Appointment Scheduler API",
+    "description": "API for a Medical Appointment Scheduler Project for cse341 course developed by Alejandro Naranjo and José Aguirre",
+    "version": "1.0.0"
+  },
+  "host": "medical-scheduler.herokuapp.com",
+  "basePath": "/",
+  "schemes": [
+    "https"
+  ],
+  "paths": {
+    "/": {
+      "get": {
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    }
+  }
+}
