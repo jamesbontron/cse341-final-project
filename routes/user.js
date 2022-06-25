@@ -31,26 +31,28 @@ routes.get('/', (req, res) => {
     console.log('All users shown');
   });
 });
-/*
+
 // Create a user
-routes.post('/', userValidation, (req, res) => {
-  const result = results(req);
+routes.post('/', (req, res) => {
+  /*const result = results(req);
   if (!result.isEmpty()) {
     const errors = result.array();
     return res.status(400).json(errors);
   }
-
-  const user = dbconnection.getUsers().insertOne({
+*/
+  const user = dbconnection.getUser().insertOne({
+    googleID: req.body.googleID,
+    displayName: req.body.displayName,
     firstName: req.body.firstName,
-    lastName: req.body.lastName,
-    email: req.body.email,
+    image: req.body.image,
+    birth: req.body.birth,
+    createdAt: req.body.createdAt,
     role: req.body.role,
-    password: req.body.password,
   });
 
   user.then((document) => {
     if (!document.insertedId) return res.status(404).send(`No user was added`);
-    res.status(201).redirect(`/users/${document.insertedId}`);
+    res.status(201).redirect(`/user/${document.insertedId}`);
     console.log(`User was created with id: ${document.insertedId}`);
   });
 });
@@ -58,13 +60,13 @@ routes.post('/', userValidation, (req, res) => {
 // Get a user by Id
 routes.get('/:id', (req, res) => {
   const passedId = req.params.id;
-  if (!ObjectId.isValid(passedId)) {
+  /*if (!ObjectId.isValid(passedId)) {
     const error = createError(400, 'Invalid Id provided');
     return res.status(error.status).send(error);
-  }
+  }*/
   const userId = new ObjectId(passedId);
 
-  const user = dbconnection.getUsers().findOne({ _id: userId });
+  const user = dbconnection.getUser().findOne({ _id: userId });
 
   user.then((document) => {
     if (!document)
@@ -75,31 +77,33 @@ routes.get('/:id', (req, res) => {
 });
 
 // Update a user by Id
-routes.put('/:id', userValidation, (req, res) => {
+routes.put('/:id', (req, res) => {
   const passedId = req.params.id;
-  if (!ObjectId.isValid(passedId)) {
+  /*if (!ObjectId.isValid(passedId)) {
     const error = createError(400, 'Invalid Id provided');
     return res.status(error.status).send(error);
-  }
+  }*/
   const userId = new ObjectId(passedId);
-
+  /*
   const result = results(req);
   if (!result.isEmpty()) {
     const errors = result.array();
     return res.status(400).json(errors);
   }
-
-  const user = dbconnection.getUsers().updateOne(
+*/
+  const user = dbconnection.getUser().updateOne(
     {
       _id: userId,
     },
     {
       $set: {
+        googleID: req.body.googleID,
+        displayName: req.body.displayName,
         firstName: req.body.firstName,
-        lastName: req.body.lastName,
-        email: req.body.email,
+        image: req.body.image,
+        birth: req.body.birth,
+        createdAt: req.body.createdAt,
         role: req.body.role,
-        password: req.body.password,
       },
     }
   );
@@ -121,12 +125,12 @@ routes.put('/:id', userValidation, (req, res) => {
 // Delete a user by Id
 routes.delete('/:id', (req, res) => {
   const passedId = req.params.id;
-  if (!ObjectId.isValid(passedId)) {
+  /*if (!ObjectId.isValid(passedId)) {
     const error = createError(400, 'Invalid Id provided');
     return res.status(error.status).send(error);
-  }
+  }*/
   const userId = new ObjectId(passedId);
-  const user = dbconnection.getUsers().deleteOne({ _id: userId });
+  const user = dbconnection.getUser().deleteOne({ _id: userId });
 
   user.then((document) => {
     if (document.deletedCount < 1)
@@ -137,5 +141,5 @@ routes.delete('/:id', (req, res) => {
     console.log(`User was deleted with id: ${req.params.id}`);
   });
 });
-*/
+
 module.exports = routes;
