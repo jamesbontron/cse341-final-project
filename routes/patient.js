@@ -122,7 +122,7 @@ routes.put('/:id', (req, res) => {
   });
 });
 
-// Delete a user by Id
+// Delete a patient by Id
 routes.delete('/:id', (req, res) => {
   const passedId = req.params.id;
   /*if (!ObjectId.isValid(passedId)) {

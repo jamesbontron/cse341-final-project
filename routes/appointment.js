@@ -31,111 +31,124 @@ routes.get('/', (req, res) => {
     console.log('All appointments shown');
   });
 });
-/*
-// Create a user
-routes.post('/', userValidation, (req, res) => {
-  const result = results(req);
+
+// Create an appointment
+routes.post('/', (req, res) => {
+  /*const result = results(req);
   if (!result.isEmpty()) {
     const errors = result.array();
     return res.status(400).json(errors);
-  }
+  }*/
 
-  const user = dbconnection.getUsers().insertOne({
-    firstName: req.body.firstName,
-    lastName: req.body.lastName,
-    email: req.body.email,
-    role: req.body.role,
-    password: req.body.password,
+  const appointment = dbconnection.getAppointment().insertOne({
+    date: req.body.date,
+    hour: req.body.hour,
+    doctorId: req.body.doctorId,
+    patientId: req.body.patientId,
+    patientComments: req.body.patientComments,
+    doctorComments: req.body.doctorComments,
+    status: req.body.status,
   });
 
-  user.then((document) => {
-    if (!document.insertedId) return res.status(404).send(`No user was added`);
-    res.status(201).redirect(`/users/${document.insertedId}`);
-    console.log(`User was created with id: ${document.insertedId}`);
+  appointment.then((document) => {
+    if (!document.insertedId)
+      return res.status(404).send(`No appointment was added`);
+    res.status(201).redirect(`/appointment/${document.insertedId}`);
+    console.log(`appointment was created with id: ${document.insertedId}`);
   });
 });
 
-// Get a user by Id
+// Get a Appointment by Id
 routes.get('/:id', (req, res) => {
   const passedId = req.params.id;
-  if (!ObjectId.isValid(passedId)) {
+  /*if (!ObjectId.isValid(passedId)) {
     const error = createError(400, 'Invalid Id provided');
     return res.status(error.status).send(error);
-  }
-  const userId = new ObjectId(passedId);
+  }*/
+  const appointmentId = new ObjectId(passedId);
 
-  const user = dbconnection.getUsers().findOne({ _id: userId });
+  const appointment = dbconnection
+    .getAppointment()
+    .findOne({ _id: appointmentId });
 
-  user.then((document) => {
+  appointment.then((document) => {
     if (!document)
-      return res.status(404).send(`No user with id: ${req.params.id}`);
+      return res.status(404).send(`No appointment with id: ${req.params.id}`);
     res.status(200).json(document);
-    console.log(`User was retrieved with id: ${req.params.id}`);
+    console.log(`Appointment was retrieved with id: ${req.params.id}`);
   });
 });
 
-// Update a user by Id
-routes.put('/:id', userValidation, (req, res) => {
+// Update a appointment by Id
+routes.put('/:id', (req, res) => {
   const passedId = req.params.id;
-  if (!ObjectId.isValid(passedId)) {
+  /*if (!ObjectId.isValid(passedId)) {
     const error = createError(400, 'Invalid Id provided');
     return res.status(error.status).send(error);
-  }
-  const userId = new ObjectId(passedId);
-
+  }*/
+  const appointmentId = new ObjectId(passedId);
+  /*
   const result = results(req);
   if (!result.isEmpty()) {
     const errors = result.array();
     return res.status(400).json(errors);
   }
-
-  const user = dbconnection.getUsers().updateOne(
+*/
+  const appointment = dbconnection.getAppointment().updateOne(
     {
-      _id: userId,
+      _id: appointmentId,
     },
     {
       $set: {
-        firstName: req.body.firstName,
-        lastName: req.body.lastName,
-        email: req.body.email,
-        role: req.body.role,
-        password: req.body.password,
+        date: req.body.date,
+        hour: req.body.hour,
+        doctorId: req.body.doctorId,
+        patientId: req.body.patientId,
+        patientComments: req.body.patientComments,
+        doctorComments: req.body.doctorComments,
+        status: req.body.status,
       },
     }
   );
 
-  user.then((document) => {
+  appointment.then((document) => {
     if (document.matchedCount >= 1) {
       if (document.modifiedCount < 1)
         return res
           .status(404)
-          .send('User could not be updated, nothing was changed');
+          .send('Appointment could not be updated, nothing was changed');
       res.status(201).json(document);
-      console.log(`User was updated with id: ${req.params.id}`);
+      console.log(`Appointment was updated with id: ${req.params.id}`);
     } else {
-      res.status(404).send(`User was not found with id: ${req.params.id}`);
+      res
+        .status(404)
+        .send(`Appointment was not found with id: ${req.params.id}`);
     }
   });
 });
 
-// Delete a user by Id
+// Delete an appointmet by Id
 routes.delete('/:id', (req, res) => {
   const passedId = req.params.id;
-  if (!ObjectId.isValid(passedId)) {
+  /*if (!ObjectId.isValid(passedId)) {
     const error = createError(400, 'Invalid Id provided');
     return res.status(error.status).send(error);
-  }
-  const userId = new ObjectId(passedId);
-  const user = dbconnection.getUsers().deleteOne({ _id: userId });
+  }*/
+  const appointmentId = new ObjectId(passedId);
+  const appointment = dbconnection
+    .getAppointment()
+    .deleteOne({ _id: appointmentId });
 
-  user.then((document) => {
+  appointment.then((document) => {
     if (document.deletedCount < 1)
       return res
         .status(404)
-        .send(`No user with id: ${req.params.id} or deleted was not processed`);
+        .send(
+          `No appointment with id: ${req.params.id} or deleted was not processed`
+        );
     res.status(200).json(document);
-    console.log(`User was deleted with id: ${req.params.id}`);
+    console.log(`Appointment was deleted with id: ${req.params.id}`);
   });
 });
-*/
+
 module.exports = routes;
