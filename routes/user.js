@@ -4,6 +4,7 @@ const { ObjectId } = require('mongodb');
 //const { userValidation, results } = require('../validation');
 
 const dbconnection = require('../model/dbconnection');
+const { userValidation } = require('../validation');
 
 routes.use((req, res, next) => {
   res.setHeader(
@@ -33,7 +34,7 @@ routes.get('/', (req, res) => {
 });
 
 // Create a user
-routes.post('/', (req, res) => {
+routes.post('/', userValidation,(req, res) => {
   /*const result = results(req);
   if (!result.isEmpty()) {
     const errors = result.array();

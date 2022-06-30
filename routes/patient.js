@@ -1,7 +1,7 @@
 const routes = require('express').Router();
 const { ObjectId } = require('mongodb');
 //const createError = require('http-errors');
-//const { userValidation, results } = require('../validation');
+const { patientValidation, results } = require('../validation');
 
 const dbconnection = require('../model/dbconnection');
 
@@ -33,7 +33,7 @@ routes.get('/', (req, res) => {
 });
 
 // Create a patient
-routes.post('/', (req, res) => {
+routes.post('/',patientValidation, (req, res) => {
   /*const result = results(req);
   if (!result.isEmpty()) {
     const errors = result.array();

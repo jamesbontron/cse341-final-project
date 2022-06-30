@@ -4,6 +4,7 @@ const { ObjectId } = require('mongodb');
 //const { userValidation, results } = require('../validation');
 
 const dbconnection = require('../model/dbconnection');
+const { invoiceValidation } = require('../validation');
 
 routes.use((req, res, next) => {
   res.setHeader(
@@ -33,7 +34,7 @@ routes.get('/', (req, res) => {
 });
 
 // Create an Invoice
-routes.post('/', (req, res) => {
+routes.post('/',invoiceValidation,(req, res) => {
   /*const result = results(req);
   if (!result.isEmpty()) {
     const errors = result.array();
