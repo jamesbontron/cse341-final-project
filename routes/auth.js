@@ -13,4 +13,9 @@ routes.use(
   }
 );
 
+routes.post('/logout', (req, res) => {
+  req.logout();
+  res.redirect('/');
+});
+
 module.exports = routes;

@@ -7,14 +7,15 @@ routes.get('/', (req, res) => {
 routes.get('/dashboard', ensureAuth, (req, res) => {
   console.log(req.user);
   res.render('dashboard', {
-    title: 'Welcome to your dashboard',
+    title: `Welcome to your dashboard ${req.user.firstName}`,
     name: req.user.displayName,
+    image: req.user.image,
   });
 });
-routes.use('/user', require('./user'));
-routes.use('/patient', require('./patient'));
-routes.use('/invoice', require('./invoice'));
-routes.use('/appointment', require('./appointment'));
+routes.use('/user', ensureAuth, require('./user'));
+routes.use('/patient', ensureAuth, require('./patient'));
+routes.use('/invoice', ensureAuth, require('./invoice'));
+routes.use('/appointment', ensureAuth, require('./appointment'));
 routes.use('/api-docs', require('./doc'));
 routes.use('/auth', ensureGuest, require('./auth'));
 
