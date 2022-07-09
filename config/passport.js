@@ -47,8 +47,8 @@ module.exports = function (passport) {
   });
 
   passport.deserializeUser((id, done) => {
-    console.log(`id: ${JSON.stringify(id)}`);
-    console.log(id._id);
+    //console.log(`id: ${JSON.stringify(id)}`);
+    //console.log(id._id);
     done(null, id);
   });
 };

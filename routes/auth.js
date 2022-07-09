@@ -2,7 +2,7 @@ const routes = require('express').Router();
 const passport = require('passport');
 
 routes.get('/', (req, res) => {
-  res.render('login', { title: 'Logginredirect' });
+  res.render('login', { title: 'Loggin Page' });
 });
 routes.get('/google', passport.authenticate('google', { scope: ['profile'] }));
 routes.use(
@@ -12,10 +12,5 @@ routes.use(
     res.redirect('/dashboard');
   }
 );
-
-routes.post('/logout', (req, res) => {
-  req.logout();
-  res.redirect('/');
-});
 
 module.exports = routes;

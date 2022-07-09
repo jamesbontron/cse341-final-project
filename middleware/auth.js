@@ -13,4 +13,19 @@ module.exports = {
       return next();
     }
   },
+  ensurePatient: (req, res, next) => {
+    if (req.user.role === 'patient') {
+      res.redirect('/dashboard');
+    } else {
+      return next();
+    }
+  },
+  logOut: (req, res, next) => {
+    return req.logOut((err) => {
+      if (err) {
+        return next(err);
+      }
+      res.redirect('/');
+    });
+  },
 };
