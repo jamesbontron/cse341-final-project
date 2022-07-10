@@ -20,12 +20,4 @@ module.exports = {
       return next();
     }
   },
-  logOut: (req, res, next) => {
-    return req.logOut((err) => {
-      if (err) {
-        return next(err);
-      }
-      res.redirect('/');
-    });
-  },
 };
