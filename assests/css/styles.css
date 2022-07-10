@@ -10,7 +10,7 @@ body {
     background: linear-gradient(0deg, rgb(21, 186, 245) 0%, rgb(25, 94, 121) 100%);
   }
   
-  .content {
+  .content-unauthorized {
     background: white;
     width: 380px;
     height: 480px;
@@ -24,10 +24,10 @@ body {
   }
   
   .content-bottom {
-    margin: 10px 0;
+    margin: 5px 0;
   }
   
-  h1 {
+  .content-unauthorized h1 {
     font-family: serif;
     font-size: 26px;
     margin: 32px auto 24px;
@@ -53,20 +53,7 @@ body {
     border: none;
     font-size: 14px;
   }
-  
-  input[type='text'] {
-    width: 180px;
-    line-height: 32px;
-    margin-bottom: 12px;
-    padding-left: 12px;
-  }
-  
   .sign-in-text {
     font-size: 14px;
     line-height: 22px;
-  }
-  .party-popper {
-    display: inline-block;
-    font-size: 52px;
-    margin-bottom: 24px;
   }
