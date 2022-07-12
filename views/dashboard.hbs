@@ -1,8 +1,27 @@
-<main>
-  <h1>Welcome, {{name}}</h1>
-  <p>Your role is: {{role}}</p>
-  <img src={{image}} alt='Personal photo' />
-  <p><a href='/dashboard/manage-appointments'>Manage Appointments</a></p>
-  <p><a href='/dashboard/add-appointment'>Add appointment</a></p>
-  <p><a href='/dashboard/logout'>Logout</a></p>
-</main>
+<div class="page">
+  <header>
+      <img src = "/images/logo.png" alt = "Logo">
+      <a href="/dashboard/logout">Logout</a>
+  </header>
+  <nav>
+      <ul>
+          <li><a href="/">Home</a><li>
+          <li><a href="/dashboard/add-appointment">Appointments</a><li>
+      </ul>
+  </nav>
+  <main>
+      <h1>Welcome, {{name}}</h1>
+      <p>Your role is: {{role}}</p>
+      <img src={{image}} alt='Personal photo' />
+      <p><a href='/dashboard/manage-appointments'>Manage Appointments</a></p>
+  </main>
+  <footer>
+      <p>&copy; Medical Appointment Scheduler, All rights reserved.</p>
+      <p>
+          All images used are believed to be in "Fair Use".
+          Please notify the author if any are not and they
+          will be removed.
+      </p>
+      <p>Last Updated: 11 July, 2022</p>
+  </footer>
+</div>
