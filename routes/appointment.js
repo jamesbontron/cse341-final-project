@@ -34,7 +34,7 @@ routes.get('/', (req, res) => {
 });
 
 // Create an appointment
-routes.post('/',appointmentValidation, (req, res) => {
+routes.post('/', appointmentValidation, (req, res) => {
   /*const result = results(req);
   if (!result.isEmpty()) {
     const errors = result.array();
@@ -54,7 +54,7 @@ routes.post('/',appointmentValidation, (req, res) => {
   appointment.then((document) => {
     if (!document.insertedId)
       return res.status(404).send(`No appointment was added`);
-    res.status(201).redirect(`/appointment/${document.insertedId}`);
+    res.status(201).json(document);
     console.log(`appointment was created with id: ${document.insertedId}`);
   });
 });

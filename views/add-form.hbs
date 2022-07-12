@@ -1,1 +1,23 @@
-<h2>Add an appointment</h2>
+<main>
+  <h2>Add an appointment</h2>
+  <a href='/dashboard'>Return to Dashboard</a>
+  <form>
+    <label for='date'>Date: </label>
+    <input type='date' name='date' id='date' required /><br />
+    <label for='hour'>Hour: </label>
+    <input type='time' name='hour' id='hour' required /><br />
+    <label for='doctorId'>Doctor: </label>{{{select}}}
+    <br />
+    <textarea
+      name='patientComments'
+      id='patientComments'
+      cols='30'
+      rows='10'
+      placeholder='Add a comment here'
+      required
+    ></textarea>
+    <input type='hidden' name='patientId' id='patientId' value={{patientId}} />
+    <button type='button' onclick='postData()'>Add Appointment</button>
+  </form>
+</main>
+<script src='/js/main-functions.js'></script>

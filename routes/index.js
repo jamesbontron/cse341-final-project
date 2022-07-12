@@ -12,7 +12,7 @@ routes.use('/dashboard', ensureAuth, require('./dashboard'));
 routes.use('/user', ensureAuth, ensurePatient, require('./user'));
 routes.use('/patient', ensureAuth, ensurePatient, require('./patient'));
 routes.use('/invoice', ensureAuth, ensurePatient, require('./invoice'));
-routes.use('/appointment', ensureAuth, ensurePatient, require('./appointment'));
+routes.use('/appointment', ensureAuth, require('./appointment'));
 routes.use('/api-docs', require('./doc'));
 routes.use('/auth', ensureGuest, require('./auth'));
 
