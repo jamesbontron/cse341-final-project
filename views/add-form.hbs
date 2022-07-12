@@ -1,23 +1,43 @@
-<main>
-  <h2>Add an appointment</h2>
-  <a href='/dashboard'>Return to Dashboard</a>
-  <form>
-    <label for='date'>Date: </label>
-    <input type='date' name='date' id='date' required /><br />
-    <label for='hour'>Hour: </label>
-    <input type='time' name='hour' id='hour' required /><br />
-    <label for='doctorId'>Doctor: </label>{{{select}}}
-    <br />
-    <textarea
-      name='patientComments'
-      id='patientComments'
-      cols='30'
-      rows='10'
-      placeholder='Add a comment here'
-      required
-    ></textarea>
-    <input type='hidden' name='patientId' id='patientId' value={{patientId}} />
-    <button type='button' onclick='postData()'>Add Appointment</button>
-  </form>
-</main>
+<div class="page">
+  <header>
+    <img src = "logo.png" alt = "Logo">
+    <a href="/auth">Login</a>
+  </header>
+  <nav>
+    <ul>
+        <li><a href="/dashboard">Home</a><li>
+        <li><a href="/dashboard/add-appointment">Appointments</a><li>
+    </ul>
+  </nav>
+  <main>
+      <h1>Add an appointment</h1>
+    <form>
+      <label for='date'>Date: </label>
+      <input type='date' name='date' id='date' required /><br />
+      <label for='hour'>Hour: </label>
+      <input type='time' name='hour' id='hour' required /><br />
+      <label for='doctorId'>Doctor: </label>{{{select}}}
+      <br />
+      <textarea
+        name='patientComments'
+        id='patientComments'
+        cols='30'
+        rows='10'
+        placeholder='Add a comment here'
+        required
+      ></textarea>
+      <input type='hidden' name='patientId' id='patientId' value={{patientId}} />
+      <button type='button' onclick='postData()'>Add Appointment</button>
+    </form>
+  </main>
+  <footer>
+      <p>&copy; Medical Appointment Scheduler, All rights reserved.</p>
+      <p>
+          All images used are believed to be in "Fair Use".
+          Please notify the author if any are not and they
+          will be removed.
+      </p>
+      <p>Last Updated: 11 July, 2022</p>
+  </footer>
+</div>
 <script src='/js/main-functions.js'></script>
