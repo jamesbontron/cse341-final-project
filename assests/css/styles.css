@@ -1,3 +1,114 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@500&display=swap');
+html{
+    box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+body {
+    font-family: 'Open Sans', sans-serif;
+    margin: 0;
+    background-color: #4c96d7;
+}
+body p{
+    margin-left: 0.5em;
+}
+.page {
+    width: 100%;
+    background-color: white;
+    margin-left: auto;
+    margin-right: auto;
+    padding-bottom: 1em;
+}
+
+header {
+    padding: 20px;
+}
+header a{
+    color: #58286a;
+    float: right;
+    text-decoration: none;
+    padding-right: 10px;
+    font-size: 1.3em;
+
+}
+
+header img {
+    display: block;
+    float: left;
+    max-width: 13%;
+    margin-bottom: 4px;
+}
+
+nav {
+    clear: both;
+    font-size: 100%;
+}
+
+nav ul {
+    display: flex;
+    background-color: #58286a;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    flex-wrap: wrap;
+}
+
+nav li {
+    display: inline;
+}
+
+nav li a {
+    display: block;
+    color: #ffffff;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+nav li a:hover {
+    background-color: #4c96d7;
+    color: #3a3a3a;
+}
+footer{
+    margin-top: 1em;
+    text-align: center;
+    font-size: small;
+    border-top: 4px solid black;
+}
+main h1{
+    margin-left: 0.25rem;
+}
+
+main img{
+    max-width: 100%;
+}
+
+@media only screen and (min-width: 768px) {
+  h1{
+      font-size:xx-large;
+  }
+  .text h2{
+      font-size: larger;
+  }
+  header a{
+      font-size: 1.5em;
+  }
+  .page {
+    border: 5px solid #4c96d7;
+    border-radius: 10px;
+    margin-top: 1em;
+    width: 75%;
+  }
+
+}
+
+/*Old CSS
 body {
     height: 100vh;
     margin: 0;
@@ -8,7 +119,7 @@ body {
     align-items: center;
     background: rgb(21, 186, 245);
     background: linear-gradient(0deg, rgb(21, 186, 245) 0%, rgb(25, 94, 121) 100%);
-  }
+  }*/
   
   .content-unauthorized {
     background: white;
