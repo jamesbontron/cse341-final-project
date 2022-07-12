@@ -12,7 +12,8 @@ html{
 body {
     font-family: 'Open Sans', sans-serif;
     margin: 0;
-    background-color: #4c96d7;
+    background: rgb(21, 186, 245);
+    background: linear-gradient(0deg, rgb(21, 186, 245) 0%, rgb(25, 94, 121) 100%);
 }
 body p{
     margin-left: 0.5em;
@@ -108,18 +109,15 @@ main img{
 
 }
 
-/*Old CSS
-body {
+
+.login {
     height: 100vh;
-    margin: 0;
     color: #222;
-    font-family: sans-serif;
     display: flex;
     justify-content: center;
     align-items: center;
-    background: rgb(21, 186, 245);
-    background: linear-gradient(0deg, rgb(21, 186, 245) 0%, rgb(25, 94, 121) 100%);
-  }*/
+    
+  }
   
   .content-unauthorized {
     background: white;
