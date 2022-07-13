@@ -7,7 +7,7 @@ const doc = {
       'API for a Medical Appointment Scheduler Project for cse341 course developed by Alejandro Naranjo and José Aguirre',
   },
   host: 'medical-scheduler.herokuapp.com',
-  schemes: ['https'],
+  schemes: ['https', 'http'],
 };
 
 const outputFile = './swagger.json';

@@ -8,7 +8,8 @@
   "host": "medical-scheduler.herokuapp.com",
   "basePath": "/",
   "schemes": [
-    "https"
+    "https",
+    "http"
   ],
   "paths": {
     "/": {
