@@ -88,10 +88,26 @@ routes.get('/manage-appointments/:id', (req, res) => {
         selectDisplay += `>${doc.displayName}</option>`;
       }
       selectDisplay += '</select>';
-
+      let updateForm = `<label for='date'>Date: </label>
+      <input type='date' name='date' id='date' value=${appointment.date} required /><br />
+      <label for='hour'>Hour: </label>
+      <input type='time' name='hour' id='hour' value=${appointment.hour} required /><br />
+      <label for='doctorId'>Doctor: </label>`;
+      updateForm += `${selectDisplay}`;
+      updateForm += `
+      <br />
+      <textarea
+        name='patientComments'
+        id='patientComments'
+        cols='30'
+        rows='10'
+        required
+      >${appointment.patientComments}</textarea>
+      <input type='hidden' name='patientId' id='patientId' value=${appointment.patientId} />
+      <button type='button' onclick="putData('${appointment._id}')">Update Appointment</button>`;
       res.render('update-appointment', {
         title: 'Update your appointment',
-        updateInputs: selectDisplay,
+        updateInputs: updateForm,
         patientId: req.user._id,
       });
     });
