@@ -26,13 +26,14 @@ app.engine(
   })
 );
 app.set('view engine', '.hbs');
+app.use(express.urlencoded({ extended: true }));
 
 // Session
 app.use(
   session({
     secret: 'medical appointment here',
-    resave: false,
-    saveUninitialized: false,
+    resave: true,
+    saveUninitialized: true,
   })
 );
 

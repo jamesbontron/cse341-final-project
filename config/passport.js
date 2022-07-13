@@ -1,4 +1,5 @@
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
+const PassportLocal = require('passport-local').Strategy;
 const dbconnection = require('../model/dbconnection');
 
 module.exports = function (passport) {
@@ -40,6 +41,25 @@ module.exports = function (passport) {
       }
     )
   );
+
+  passport.use(
+    new PassportLocal((username, password, done) => {
+      const user = dbconnection.getUser().findOne({ username: username });
+
+      user.then((admin) => {
+        if (!admin) {
+          done(null, false);
+        } else {
+          if (username === admin.username && password === admin.password) {
+            return done(null, user);
+          } else {
+            done(null, false);
+          }
+        }
+      });
+    })
+  );
+
   passport.serializeUser((user, done) => {
     user.then((patient) => {
       done(null, patient);
