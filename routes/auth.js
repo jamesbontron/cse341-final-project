@@ -12,7 +12,7 @@ routes.get('/admin', (req, res) => {
 routes.post(
   '/admin',
   passport.authenticate('local', {
-    successRedirect: '/dashboard',
+    successRedirect: '/admin',
     failureRedirect: '/auth/admin',
   })
 );
