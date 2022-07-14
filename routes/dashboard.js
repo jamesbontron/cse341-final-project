@@ -48,11 +48,23 @@ routes.get('/manage-appointments', (req, res) => {
           <p>Hour: ${document.hour}</p>
           <p>Your comments: ${document.patientComments}</p>
           <p>Doctor: ${doctorName}</p>
-          <p>Status: ${document.status}</p>
-          <a href="/dashboard/manage-appointments/${document._id}">Edit it</a>
-          <button type="button" onclick="deleteData('${document._id}')">Delete it</button>
-          </li>
-          `;
+          <p>Status: ${document.status}</p>`;
+        
+if(document.status=== 'Confirmed'){
+  listAppointments +=`<a href="/dashboard/manage-appointments/${document._id}">Edit it</a>`;
+}
+else if(document.status=== 'Finished'){
+  listAppointments +=`<a href="#">Get Invoice</a>`;
+}
+else
+{
+listAppointments += `<a href="/dashboard/manage-appointments/${document._id}">Edit it</a>
+<button type="button" onclick="deleteData('${document._id}')">Delete it</button>
+</li>
+`;
+}
+
+          
       }
 
       res.render('manage-appointments', {
