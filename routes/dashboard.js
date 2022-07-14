@@ -1,10 +1,10 @@
-const routes = require('express').Router();
-const dbconnection = require('../model/dbconnection');
-const { ObjectId } = require('mongodb');
+const routes = require("express").Router();
+const dbconnection = require("../model/dbconnection");
+const { ObjectId } = require("mongodb");
 
-routes.get('/', (req, res) => {
+routes.get("/", (req, res) => {
   //console.log(req.user);
-  res.render('dashboard', {
+  res.render("dashboard", {
     title: `Welcome to your dashboard ${req.user.firstName}`,
     name: req.user.displayName,
     image: req.user.image,
@@ -12,33 +12,33 @@ routes.get('/', (req, res) => {
   });
 });
 
-routes.get('/add-appointment', (req, res) => {
-  const doctors = dbconnection.getUser().find({ role: 'doctor' });
+routes.get("/add-appointment", (req, res) => {
+  const doctors = dbconnection.getUser().find({ role: "doctor" });
   let selectDisplay = '<select name="doctorId" id="doctorId">';
   doctors.toArray().then((documents) => {
     for (document of documents) {
       selectDisplay += `<option value="${document._id}">${document.displayName}</option>`;
     }
-    selectDisplay += '</select>';
-    res.render('add-form', {
-      title: 'Add an appointment',
+    selectDisplay += "</select>";
+    res.render("add-form", {
+      title: "Add an appointment",
       select: selectDisplay,
       patientId: req.user._id,
     });
   });
 });
 
-routes.get('/manage-appointments', (req, res) => {
+routes.get("/manage-appointments", (req, res) => {
   const patientAppointments = dbconnection
     .getAppointment()
     .find({ patientId: req.user._id });
-  let listAppointments = '';
+  let listAppointments = "";
   patientAppointments.toArray().then((documents) => {
-    const doctors = dbconnection.getUser().find({ role: 'doctor' }).toArray();
+    const doctors = dbconnection.getUser().find({ role: "doctor" }).toArray();
 
     doctors.then((doctor) => {
       for (document of documents) {
-        let doctorName = '';
+        let doctorName = "";
         for (doc of doctor) {
           if (doc._id == document.doctorId) {
             doctorName = doc.displayName;
@@ -49,28 +49,23 @@ routes.get('/manage-appointments', (req, res) => {
           <p>Your comments: ${document.patientComments}</p>
           <p>Doctor: ${doctorName}</p>
           <p>Status: ${document.status}</p>`;
-        
-if(document.status=== 'Confirmed'){
-  listAppointments +=`<a href="/dashboard/manage-appointments/${document._id}">Edit it</a>`;
-}
-else if(document.status=== 'Finished'){
-  listAppointments +=`
+
+        if (document.status === "Confirmed") {
+          listAppointments += `<a href="/dashboard/manage-appointments/${document._id}">Edit it</a>`;
+        } else if (document.status === "Finished") {
+          listAppointments += `
   <p>Doctor comments: ${document.doctorComments}</p>
-  <a href="#">Get Invoice</a>`;
-}
-else
-{
-listAppointments += `<a href="/dashboard/manage-appointments/${document._id}">Edit it</a>
+  <a href="/dashboard/invoice/${document._id}">Get Invoice</a>`;
+        } else {
+          listAppointments += `<a href="/dashboard/manage-appointments/${document._id}">Edit it</a>
 <button type="button" onclick="deleteData('${document._id}')">Delete it</button>
 </li>
 `;
-}
-
-          
+        }
       }
 
-      res.render('manage-appointments', {
-        title: 'Manage your appointments',
+      res.render("manage-appointments", {
+        title: "Manage your appointments",
         listAppointment: listAppointments,
         patientId: req.user._id,
       });
@@ -78,7 +73,7 @@ listAppointments += `<a href="/dashboard/manage-appointments/${document._id}">Ed
   });
 });
 
-routes.get('/manage-appointments/:id', (req, res) => {
+routes.get("/manage-appointments/:id", (req, res) => {
   const passedId = req.params.id;
   /*if (!ObjectId.isValid(passedId)) {
     const error = createError(400, 'Invalid Id provided');
@@ -91,7 +86,7 @@ routes.get('/manage-appointments/:id', (req, res) => {
     .findOne({ _id: appointmentId });
 
   appointment.then((appointment) => {
-    const doctors = dbconnection.getUser().find({ role: 'doctor' });
+    const doctors = dbconnection.getUser().find({ role: "doctor" });
     let selectDisplay = '<select name="doctorId" id="doctorId">';
     doctors.toArray().then((doctor) => {
       for (doc of doctor) {
@@ -101,7 +96,7 @@ routes.get('/manage-appointments/:id', (req, res) => {
         }
         selectDisplay += `>${doc.displayName}</option>`;
       }
-      selectDisplay += '</select>';
+      selectDisplay += "</select>";
       let updateForm = `<label for='date'>Date: </label>
       <input type='date' name='date' id='date' value=${appointment.date} required /><br />
       <label for='hour'>Hour: </label>
@@ -119,8 +114,8 @@ routes.get('/manage-appointments/:id', (req, res) => {
       >${appointment.patientComments}</textarea>
       <input type='hidden' name='patientId' id='patientId' value=${appointment.patientId} />
       <button type='button' onclick="putData('${appointment._id}', '${appointment.status}')">Update Appointment</button>`;
-      res.render('update-appointment', {
-        title: 'Update your appointment',
+      res.render("update-appointment", {
+        title: "Update your appointment",
         updateInputs: updateForm,
         patientId: req.user._id,
       });
@@ -128,12 +123,48 @@ routes.get('/manage-appointments/:id', (req, res) => {
   });
 });
 
-routes.get('/logout', (req, res) => {
+routes.get("/invoice/:appointmentId", (req, res) => {
+  const appointmentId = req.params.appointmentId;
+
+  console.log(appointmentId);
+
+  const invoice = dbconnection
+    .getInvoice()
+    .findOne({ appointmentId: appointmentId });
+
+  invoice.then((document) => {
+    console.log(document);
+    const doctorId = new ObjectId(document.doctorId);
+    const patientId = new ObjectId(document.patientId);
+    const doctor = dbconnection.getUser().findOne({ _id: doctorId });
+    const appointmentDate = `Date: ${document.date} - Hour: ${document.hour}`;
+    doctor.then((doc) => {
+      const patient = dbconnection.getPatient().findOne({ _id: patientId });
+
+      patient.then((pat) => {
+        let appointmentInfo = `
+          <p>Doctor: ${doc.displayName}<br />
+          Patient: ${pat.displayName}</p>
+          <p>Comments: ${document.doctorComments}</p>
+          <p>Price: $${document.price}  
+        `;
+
+        res.render("invoice", {
+          title: "Medical Invoice",
+          appointmentDate: appointmentDate,
+          appointmentInfo: appointmentInfo,
+        });
+      });
+    });
+  });
+});
+
+routes.get("/logout", (req, res) => {
   req.logOut((err) => {
     if (err) {
       return next(err);
     }
-    res.redirect('/');
+    res.redirect("/");
   });
 });
 

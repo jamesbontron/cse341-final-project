@@ -56,7 +56,7 @@ routes.get("/manage-appointments", (req, res) => {
           } else if (document.status === "Finished") {
             listAppointments += `
             <p>Your comments: ${document.doctorComments}</p>
-            <a href="#">Invoice</a>`;
+            <a href="/admin/invoice/${document._id}">Invoice</a>`;
           } else {
             listAppointments += `<a href="/admin/manage-appointments/${document._id}">Confirm or Cancel</a>
             <button type="button" onclick="deleteData('${document._id}')">Delete it</button>`;
@@ -189,6 +189,42 @@ routes.get("/attend-appointments/:id", (req, res) => {
       res.render("update-appointment", {
         title: "Medical Attention",
         updateInputs: updateForm,
+      });
+    });
+  });
+});
+
+routes.get("/invoice/:appointmentId", (req, res) => {
+  const appointmentId = req.params.appointmentId;
+
+  console.log(appointmentId);
+
+  const invoice = dbconnection
+    .getInvoice()
+    .findOne({ appointmentId: appointmentId });
+
+  invoice.then((document) => {
+    console.log(document);
+    const doctorId = new ObjectId(document.doctorId);
+    const patientId = new ObjectId(document.patientId);
+    const doctor = dbconnection.getUser().findOne({ _id: doctorId });
+    const appointmentDate = `Date: ${document.date} - Hour: ${document.hour}`;
+    doctor.then((doc) => {
+      const patient = dbconnection.getPatient().findOne({ _id: patientId });
+
+      patient.then((pat) => {
+        let appointmentInfo = `
+          <p>Doctor: ${doc.displayName}<br />
+          Patient: ${pat.displayName}</p>
+          <p>Comments: ${document.doctorComments}</p>
+          <p>Price: $${document.price}  
+        `;
+
+        res.render("invoice", {
+          title: "Medical Invoice",
+          appointmentDate: appointmentDate,
+          appointmentInfo: appointmentInfo,
+        });
       });
     });
   });
