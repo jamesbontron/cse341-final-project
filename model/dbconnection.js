@@ -15,7 +15,7 @@ async function connectDatabase() {
   await client.connect((err, database) => {
     if (err) throw err;
     _medicalRecord = database.db('medical_record');
-    console.log('Database Connected Sucsesfully');
+    console.log('Database Connected Succesfully');
   });
 }
 
