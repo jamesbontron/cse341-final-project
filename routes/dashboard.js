@@ -54,7 +54,9 @@ if(document.status=== 'Confirmed'){
   listAppointments +=`<a href="/dashboard/manage-appointments/${document._id}">Edit it</a>`;
 }
 else if(document.status=== 'Finished'){
-  listAppointments +=`<a href="#">Get Invoice</a>`;
+  listAppointments +=`
+  <p>Doctor comments: ${document.doctorComments}</p>
+  <a href="#">Get Invoice</a>`;
 }
 else
 {

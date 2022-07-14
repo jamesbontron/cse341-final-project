@@ -91,13 +91,13 @@ routes.get('/manage-appointments/:id', (req, res) => {
     .findOne({ _id: appointmentId });
 
   appointment.then((appointment) => {
-    const doctors = dbconnection.getUser().find({ role: 'doctor' });
-    let doctorDisplay = '<input type="hidden" name="doctorId" id="doctorId"';
-    doctors.toArray().then((doctor) => {
-      for (doc of doctor) {
-        if (doc._id == appointment.doctorId) {
-          doctorDisplay += `value="${doc._id}">`;
-          doctorDisplay += `<label for="doctorId">Doctor: ${doc.displayName}</label>`;
+    const patients = dbconnection.getPatient().find().toArray();
+    let patientDisplay = ``;
+    patients.then((patient) => {
+      for (pat of patient) {
+        if (pat._id == appointment.patientId) {
+          
+          patientDisplay += `<label for="patientId">Patient: ${pat.displayName}</label>`;
         }
       }
       let updateForm = `<label for='date'>Date: </label>
@@ -105,7 +105,7 @@ routes.get('/manage-appointments/:id', (req, res) => {
       <label for='hour'>Hour: </label>
       <input type='time' name='hour' id='hour' value=${appointment.hour} disabled /><br />
       `;
-      updateForm += `${doctorDisplay}`;
+      updateForm += `${patientDisplay}`;
       updateForm += `
       <br />
       <textarea
@@ -116,6 +116,7 @@ routes.get('/manage-appointments/:id', (req, res) => {
         disabled
       >${appointment.patientComments}</textarea><br>
       <input type='hidden' name='patientId' id='patientId' value=${appointment.patientId} />
+      <input type="hidden" name="doctorId" id="doctorId" value="${req.user._id}>"
       <button type='button' onclick="confirmAppointment('${appointment._id}', 'Confirmed')">Confirm</button>
       <button type='button' onclick="confirmAppointment('${appointment._id}', 'Canceled')">Cancel</button>`;
       res.render('update-appointment', {
