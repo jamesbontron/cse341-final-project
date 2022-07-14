@@ -173,23 +173,22 @@ routes.get("/attend-appointments/:id", (req, res) => {
       ></textarea><br />
       <input type='hidden' name='patientId' id='patientId' value=${appointment.patientId} />
       <input type="hidden" name="doctorId" id="doctorId" value="${appointment.doctorId}" />
-      <button type='button' id='finishButton'
-      onclick="finishAppointment('${appointment._id}', 'Finished')">
+      <button type='button' id='finishButton' onclick="finishAppointment('${appointment._id}', 'Finished')">
       Finish Appointment</button><br />
       <label for='price'>Price:</label>
       <input type='number' name='price' id='price' disabled><br /> 
       <button type='button' id='invoiceButton'
       onclick='generateInvoice(
-        '${appointment._id}',
-         '${appointment.patientId}',
-          '${appointment.doctorId}',
-           '${appointment.doctorComments}')';
-      disabled>Generate Invoice</button>
+      "${appointment._id}",
+      "${appointment.patientId}",
+      "${appointment.doctorId}",
+      "${appointment.date}",
+      "${appointment.hour}"
+      )' disabled>Generate Invoice</button>
       `;
       res.render("update-appointment", {
         title: "Medical Attention",
         updateInputs: updateForm,
-        patientId: req.user._id,
       });
     });
   });
