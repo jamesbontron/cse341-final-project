@@ -47,14 +47,16 @@ routes.get('/manage-appointments', (req, res) => {
           }
           listAppointments += `<li><p>Date : ${document.date}</p>
           <p>Hour: ${document.hour}</p>
-          <p>Patient comments: ${document.patientComments}</p>
           <p>Patient: ${patientName}</p>
+          <p>Patient comments: ${document.patientComments}</p>
           <p>Status: ${document.status}</p>`;
 
           if (document.status === 'Confirmed') {
             listAppointments += `<a href="/admin/attend-appointments/${document._id}">Attend or Treat</a>`;
           } else if (document.status === 'Finished') {
-            listAppointments += `<a href="#">Invoice</a>`;
+            listAppointments += `
+            <p>Your comments: ${document.doctorComments}</p>
+            <a href="#">Invoice</a>`;
           } else {
             listAppointments += `<a href="/admin/manage-appointments/${document._id}">Confirm or Cancel</a>
             <button type="button" onclick="deleteData('${document._id}')">Delete it</button>`;
@@ -96,7 +98,6 @@ routes.get('/manage-appointments/:id', (req, res) => {
     patients.then((patient) => {
       for (pat of patient) {
         if (pat._id == appointment.patientId) {
-          
           patientDisplay += `<label for="patientId">Patient: ${pat.displayName}</label>`;
         }
       }
@@ -116,13 +117,12 @@ routes.get('/manage-appointments/:id', (req, res) => {
         disabled
       >${appointment.patientComments}</textarea><br>
       <input type='hidden' name='patientId' id='patientId' value=${appointment.patientId} />
-      <input type="hidden" name="doctorId" id="doctorId" value="${req.user._id}>"
+      <input type="hidden" name="doctorId" id="doctorId" value="${appointment.doctorId}" />
       <button type='button' onclick="confirmAppointment('${appointment._id}', 'Confirmed')">Confirm</button>
       <button type='button' onclick="confirmAppointment('${appointment._id}', 'Canceled')">Cancel</button>`;
       res.render('update-appointment', {
         title: 'Update your appointment',
         updateInputs: updateForm,
-        patientId: req.user._id,
       });
     });
   });
