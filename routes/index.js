@@ -3,12 +3,13 @@ const {
   ensureAuth,
   ensureGuest,
   ensurePatient,
+  ensureUser,
 } = require('../middleware/auth');
 
 routes.get('/', (req, res) => {
   res.render('index', { title: 'Medical Appointment Scheduler' });
 });
-routes.use('/dashboard', ensureAuth, require('./dashboard'));
+routes.use('/dashboard', ensureAuth, ensureUser, require('./dashboard'));
 routes.use('/admin', ensureAuth, ensurePatient, require('./admin'));
 routes.use('/user', ensureAuth, ensurePatient, require('./user'));
 routes.use('/patient', ensureAuth, ensurePatient, require('./patient'));

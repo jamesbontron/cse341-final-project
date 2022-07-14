@@ -20,4 +20,11 @@ module.exports = {
       return next();
     }
   },
+  ensureUser: (req, res, next) => {
+    if (req.user.role === 'doctor' || req.user.role === 'administrative') {
+      res.redirect('/admin');
+    } else {
+      return next();
+    }
+  },
 };

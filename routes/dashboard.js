@@ -104,7 +104,7 @@ routes.get('/manage-appointments/:id', (req, res) => {
         required
       >${appointment.patientComments}</textarea>
       <input type='hidden' name='patientId' id='patientId' value=${appointment.patientId} />
-      <button type='button' onclick="putData('${appointment._id}')">Update Appointment</button>`;
+      <button type='button' onclick="putData('${appointment._id}', '${appointment.status}')">Update Appointment</button>`;
       res.render('update-appointment', {
         title: 'Update your appointment',
         updateInputs: updateForm,

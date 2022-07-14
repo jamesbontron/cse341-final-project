@@ -50,7 +50,7 @@ routes.get('/manage-appointments', (req, res) => {
           <p>Patient comments: ${document.patientComments}</p>
           <p>Patient: ${patientName}</p>
           <p>Status: ${document.status}</p>
-          <a href="/admin/manage-appointments/${document._id}">Edit it</a>
+          <a href="/admin/manage-appointments/${document._id}">Confirm or Cancel</a>
           <button type="button" onclick="deleteData('${document._id}')">Delete it</button>
           </li>
           `;
@@ -63,6 +63,8 @@ routes.get('/manage-appointments', (req, res) => {
         });
       });
     });
+  } else if (req.user.role === 'administrative') {
+    res.send('Not finished');
   }
 });
 
@@ -80,22 +82,20 @@ routes.get('/manage-appointments/:id', (req, res) => {
 
   appointment.then((appointment) => {
     const doctors = dbconnection.getUser().find({ role: 'doctor' });
-    let selectDisplay = '<select name="doctorId" id="doctorId">';
+    let doctorDisplay = '<input type="hidden" name="doctorId" id="doctorId"';
     doctors.toArray().then((doctor) => {
       for (doc of doctor) {
-        selectDisplay += `<option value="${doc._id}"`;
         if (doc._id == appointment.doctorId) {
-          selectDisplay += `selected`;
+          doctorDisplay += `value="${doc._id}">`;
+          doctorDisplay += `<label for="doctorId">Doctor: ${doc.displayName}</option>`;
         }
-        selectDisplay += `>${doc.displayName}</option>`;
       }
-      selectDisplay += '</select>';
       let updateForm = `<label for='date'>Date: </label>
-      <input type='date' name='date' id='date' value=${appointment.date} required /><br />
+      <input type='date' name='date' id='date' value=${appointment.date} disabled /><br />
       <label for='hour'>Hour: </label>
-      <input type='time' name='hour' id='hour' value=${appointment.hour} required /><br />
-      <label for='doctorId'>Doctor: </label>`;
-      updateForm += `${selectDisplay}`;
+      <input type='time' name='hour' id='hour' value=${appointment.hour} disabled /><br />
+      `;
+      updateForm += `${doctorDisplay}`;
       updateForm += `
       <br />
       <textarea
@@ -103,10 +103,11 @@ routes.get('/manage-appointments/:id', (req, res) => {
         id='patientComments'
         cols='30'
         rows='10'
-        required
-      >${appointment.patientComments}</textarea>
+        disabled
+      >${appointment.patientComments}</textarea><br>
       <input type='hidden' name='patientId' id='patientId' value=${appointment.patientId} />
-      <button type='button' onclick="putData('${appointment._id}')">Update Appointment</button>`;
+      <button type='button' onclick="confirmAppointment('${appointment._id}', 'Confirmed')">Confirm</button>
+      <button type='button' onclick="confirmAppointment('${appointment._id}', 'Canceled')">Cancel</button>`;
       res.render('update-appointment', {
         title: 'Update your appointment',
         updateInputs: updateForm,
