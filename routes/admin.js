@@ -49,9 +49,19 @@ routes.get('/manage-appointments', (req, res) => {
           <p>Hour: ${document.hour}</p>
           <p>Patient comments: ${document.patientComments}</p>
           <p>Patient: ${patientName}</p>
-          <p>Status: ${document.status}</p>
-          <a href="/admin/manage-appointments/${document._id}">Confirm or Cancel</a>
-          <button type="button" onclick="deleteData('${document._id}')">Delete it</button>
+          <p>Status: ${document.status}</p>`;
+
+          if (document.status === 'Confirmed') {
+            listAppointments += `<a href="/admin/attend-appointments/${document._id}">Attend or Treat</a>`;
+          } else if (document.status === 'Finished') {
+            listAppointments += `<a href="#">Invoice</a>`;
+          } else {
+            listAppointments += `<a href="/admin/manage-appointments/${document._id}">Confirm or Cancel</a>
+            <button type="button" onclick="deleteData('${document._id}')">Delete it</button>`;
+          }
+
+          listAppointments += `
+          
           </li>
           `;
         }
@@ -87,7 +97,7 @@ routes.get('/manage-appointments/:id', (req, res) => {
       for (doc of doctor) {
         if (doc._id == appointment.doctorId) {
           doctorDisplay += `value="${doc._id}">`;
-          doctorDisplay += `<label for="doctorId">Doctor: ${doc.displayName}</option>`;
+          doctorDisplay += `<label for="doctorId">Doctor: ${doc.displayName}</label>`;
         }
       }
       let updateForm = `<label for='date'>Date: </label>
@@ -108,6 +118,61 @@ routes.get('/manage-appointments/:id', (req, res) => {
       <input type='hidden' name='patientId' id='patientId' value=${appointment.patientId} />
       <button type='button' onclick="confirmAppointment('${appointment._id}', 'Confirmed')">Confirm</button>
       <button type='button' onclick="confirmAppointment('${appointment._id}', 'Canceled')">Cancel</button>`;
+      res.render('update-appointment', {
+        title: 'Update your appointment',
+        updateInputs: updateForm,
+        patientId: req.user._id,
+      });
+    });
+  });
+});
+
+routes.get('/attend-appointments/:id', (req, res) => {
+  const passedId = req.params.id;
+  /*if (!ObjectId.isValid(passedId)) {
+    const error = createError(400, 'Invalid Id provided');
+    return res.status(error.status).send(error);
+  }*/
+  const appointmentId = new ObjectId(passedId);
+
+  const appointment = dbconnection
+    .getAppointment()
+    .findOne({ _id: appointmentId });
+
+  appointment.then((appointment) => {
+    const doctors = dbconnection.getUser().find({ role: 'doctor' });
+    let doctorDisplay = '<input type="hidden" name="doctorId" id="doctorId"';
+    doctors.toArray().then((doctor) => {
+      for (doc of doctor) {
+        if (doc._id == appointment.doctorId) {
+          doctorDisplay += `value="${doc._id}">`;
+          doctorDisplay += `<label for="doctorId">Doctor: ${doc.displayName}</label>`;
+        }
+      }
+      let updateForm = `<label for='date'>Date: </label>
+      <input type='date' name='date' id='date' value=${appointment.date} disabled /><br />
+      <label for='hour'>Hour: </label>
+      <input type='time' name='hour' id='hour' value=${appointment.hour} disabled /><br />
+      `;
+      updateForm += `${doctorDisplay}`;
+      updateForm += `
+      <br />
+      <textarea
+        name='patientComments'
+        id='patientComments'
+        cols='30'
+        rows='10'
+        disabled
+      >${appointment.patientComments}</textarea><br>
+      <textarea
+        name='doctorComments'
+        id='doctorComments'
+        cols='30'
+        rows='10'
+        placeholder='Attention comments'
+      ></textarea><br>
+      <input type='hidden' name='patientId' id='patientId' value=${appointment.patientId} />
+      <button type='button' onclick="finishAppointment('${appointment._id}', 'Finished')">Finish Appointment</button>`;
       res.render('update-appointment', {
         title: 'Update your appointment',
         updateInputs: updateForm,
