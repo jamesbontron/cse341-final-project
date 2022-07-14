@@ -1,10 +1,10 @@
-const routes = require("express").Router();
-const dbconnection = require("../model/dbconnection");
-const { ObjectId } = require("mongodb");
+const routes = require('express').Router();
+const dbconnection = require('../model/dbconnection');
+const { ObjectId } = require('mongodb');
 
-routes.get("/", (req, res) => {
+routes.get('/', (req, res) => {
   //console.log(req.user);
-  res.render("admin-dashboard", {
+  res.render('admin-dashboard', {
     title: `Welcome to your admin dashboard ${req.user.firstName}`,
     name: req.user.displayName,
     image: req.user.image,
@@ -12,34 +12,34 @@ routes.get("/", (req, res) => {
   });
 });
 
-routes.get("/add-appointment", (req, res) => {
-  const doctors = dbconnection.getUser().find({ role: "doctor" });
+routes.get('/add-appointment', (req, res) => {
+  const doctors = dbconnection.getUser().find({ role: 'doctor' });
   let selectDisplay = '<select name="doctorId" id="doctorId">';
   doctors.toArray().then((documents) => {
     for (document of documents) {
       selectDisplay += `<option value="${document._id}">${document.displayName}</option>`;
     }
-    selectDisplay += "</select>";
-    res.render("add-form", {
-      title: "Add an appointment",
+    selectDisplay += '</select>';
+    res.render('add-form', {
+      title: 'Add an appointment',
       select: selectDisplay,
       patientId: req.user._id,
     });
   });
 });
 
-routes.get("/manage-appointments", (req, res) => {
-  if (req.user.role === "doctor") {
+routes.get('/manage-appointments', (req, res) => {
+  if (req.user.role === 'doctor') {
     const patientAppointments = dbconnection
       .getAppointment()
       .find({ doctorId: req.user._id });
-    let listAppointments = "";
+    let listAppointments = '';
     patientAppointments.toArray().then((documents) => {
       const patients = dbconnection.getPatient().find().toArray();
 
       patients.then((patient) => {
         for (document of documents) {
-          let patientName = "";
+          let patientName = '';
           for (pat of patient) {
             if (pat._id == document.patientId) {
               patientName = pat.displayName;
@@ -51,9 +51,9 @@ routes.get("/manage-appointments", (req, res) => {
           <p>Patient comments: ${document.patientComments}</p>
           <p>Status: ${document.status}</p>`;
 
-          if (document.status === "Confirmed") {
+          if (document.status === 'Confirmed') {
             listAppointments += `<a href="/admin/attend-appointments/${document._id}">Attend or Treat</a>`;
-          } else if (document.status === "Finished") {
+          } else if (document.status === 'Finished') {
             listAppointments += `
             <p>Your comments: ${document.doctorComments}</p>
             <a href="/admin/invoice/${document._id}">Invoice</a>`;
@@ -68,24 +68,24 @@ routes.get("/manage-appointments", (req, res) => {
           `;
         }
 
-        res.render("manage-appointments", {
-          title: "Manage your appointments",
+        res.render('manage-appointments', {
+          title: 'Manage your appointments',
           listAppointment: listAppointments,
           doctorId: req.user._id,
         });
       });
     });
-  } else if (req.user.role === "administrative") {
-    res.send("Not finished");
+  } else if (req.user.role === 'administrative') {
+    res.send('Not finished');
   }
 });
 
-routes.get("/manage-appointments/:id", (req, res) => {
+routes.get('/manage-appointments/:id', (req, res) => {
   const passedId = req.params.id;
-  /*if (!ObjectId.isValid(passedId)) {
+  if (!ObjectId.isValid(passedId)) {
     const error = createError(400, 'Invalid Id provided');
     return res.status(error.status).send(error);
-  }*/
+  }
   const appointmentId = new ObjectId(passedId);
 
   const appointment = dbconnection
@@ -120,15 +120,15 @@ routes.get("/manage-appointments/:id", (req, res) => {
       <input type="hidden" name="doctorId" id="doctorId" value="${appointment.doctorId}" />
       <button type='button' onclick="confirmAppointment('${appointment._id}', 'Confirmed')">Confirm</button>
       <button type='button' onclick="confirmAppointment('${appointment._id}', 'Canceled')">Cancel</button>`;
-      res.render("update-appointment", {
-        title: "Update your appointment",
+      res.render('update-appointment', {
+        title: 'Update your appointment',
         updateInputs: updateForm,
       });
     });
   });
 });
 
-routes.get("/attend-appointments/:id", (req, res) => {
+routes.get('/attend-appointments/:id', (req, res) => {
   const passedId = req.params.id;
   /*if (!ObjectId.isValid(passedId)) {
     const error = createError(400, 'Invalid Id provided');
@@ -186,15 +186,15 @@ routes.get("/attend-appointments/:id", (req, res) => {
       "${appointment.hour}"
       )' disabled>Generate Invoice</button>
       `;
-      res.render("update-appointment", {
-        title: "Medical Attention",
+      res.render('update-appointment', {
+        title: 'Medical Attention',
         updateInputs: updateForm,
       });
     });
   });
 });
 
-routes.get("/invoice/:appointmentId", (req, res) => {
+routes.get('/invoice/:appointmentId', (req, res) => {
   const appointmentId = req.params.appointmentId;
 
   console.log(appointmentId);
@@ -220,8 +220,8 @@ routes.get("/invoice/:appointmentId", (req, res) => {
           <p>Price: $${document.price}  
         `;
 
-        res.render("invoice", {
-          title: "Medical Invoice",
+        res.render('invoice', {
+          title: 'Medical Invoice',
           appointmentDate: appointmentDate,
           appointmentInfo: appointmentInfo,
         });
@@ -230,12 +230,12 @@ routes.get("/invoice/:appointmentId", (req, res) => {
   });
 });
 
-routes.get("/logout", (req, res) => {
+routes.get('/logout', (req, res) => {
   req.logOut((err) => {
     if (err) {
       return next(err);
     }
-    res.redirect("/auth/admin");
+    res.redirect('/auth/admin');
   });
 });
 

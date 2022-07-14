@@ -1,10 +1,9 @@
 const routes = require('express').Router();
 const { ObjectId } = require('mongodb');
-//const createError = require('http-errors');
-//const { userValidation, results } = require('../validation');
+const createError = require('http-errors');
+const { appointmentValidation, results } = require('../validation');
 
 const dbconnection = require('../model/dbconnection');
-const { appointmentValidation } = require('../validation');
 
 routes.use((req, res, next) => {
   res.setHeader(
@@ -35,11 +34,11 @@ routes.get('/', (req, res) => {
 
 // Create an appointment
 routes.post('/', appointmentValidation, (req, res) => {
-  /*const result = results(req);
+  const result = results(req);
   if (!result.isEmpty()) {
     const errors = result.array();
     return res.status(400).json(errors);
-  }*/
+  }
 
   const appointment = dbconnection.getAppointment().insertOne({
     date: req.body.date,
@@ -62,10 +61,10 @@ routes.post('/', appointmentValidation, (req, res) => {
 // Get a Appointment by Id
 routes.get('/:id', (req, res) => {
   const passedId = req.params.id;
-  /*if (!ObjectId.isValid(passedId)) {
+  if (!ObjectId.isValid(passedId)) {
     const error = createError(400, 'Invalid Id provided');
     return res.status(error.status).send(error);
-  }*/
+  }
   const appointmentId = new ObjectId(passedId);
 
   const appointment = dbconnection
@@ -81,20 +80,20 @@ routes.get('/:id', (req, res) => {
 });
 
 // Update a appointment by Id
-routes.put('/:id', (req, res) => {
+routes.put('/:id', appointmentValidation, (req, res) => {
   const passedId = req.params.id;
-  /*if (!ObjectId.isValid(passedId)) {
+  if (!ObjectId.isValid(passedId)) {
     const error = createError(400, 'Invalid Id provided');
     return res.status(error.status).send(error);
-  }*/
+  }
   const appointmentId = new ObjectId(passedId);
-  /*
+
   const result = results(req);
   if (!result.isEmpty()) {
     const errors = result.array();
     return res.status(400).json(errors);
   }
-*/
+
   const appointment = dbconnection.getAppointment().updateOne(
     {
       _id: appointmentId,
@@ -131,10 +130,10 @@ routes.put('/:id', (req, res) => {
 // Delete an appointmet by Id
 routes.delete('/:id', (req, res) => {
   const passedId = req.params.id;
-  /*if (!ObjectId.isValid(passedId)) {
+  if (!ObjectId.isValid(passedId)) {
     const error = createError(400, 'Invalid Id provided');
     return res.status(error.status).send(error);
-  }*/
+  }
   const appointmentId = new ObjectId(passedId);
   const appointment = dbconnection
     .getAppointment()
