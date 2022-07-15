@@ -172,3 +172,8 @@ label{
     font-size: 14px;
     line-height: 22px;
   }
+  form{
+    margin-left: 50px;
+    display: inline-grid;
+    align-content: center;
+  }

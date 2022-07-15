@@ -18,6 +18,7 @@
       <input type='time' name='hour' id='hour' required /><br />
       <label for='doctorId'>Doctor: </label>{{{select}}}
       <br />
+      <label for='comments'>Comment: </label>
       <textarea
         name='patientComments'
         id='patientComments'
@@ -25,7 +26,7 @@
         rows='10'
         placeholder='Add a comment here'
         required
-      ></textarea>
+      ></textarea><br>
       <input type='hidden' name='patientId' id='patientId' value={{patientId}} />
       <button type='button' onclick='postData()'>Add Appointment</button>
     </form>
