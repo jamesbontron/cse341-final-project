@@ -27,16 +27,22 @@ async function postData() {
     referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
     body: JSON.stringify(data), // body data type must match "Content-Type" header
   });
+
+  const result = response.json();
+
+  console.log(result);
+
   console.log(response.status);
   if (response.status == 201) {
     window.location.replace('/dashboard');
   } else {
-    const result = response.json();
-
     console.log(result.errors);
-
+    let msg = '';
     result.then((data) => {
-      alert(data);
+      for (dato of data) {
+        msg += `| ${dato.msg} |`;
+      }
+      alert(msg);
     });
   }
 }

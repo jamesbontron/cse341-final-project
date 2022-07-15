@@ -1,7 +1,7 @@
 <div class="page">
   <header>
       <img src = "/images/logo.png" alt = "Logo">
-      <a href="/dashboard/logout">Logout</a>
+      <a href={{linkLogOut}}>Logout</a>
   </header>
   <nav>
       <ul>
@@ -11,8 +11,8 @@
   </nav>
 <main>
   <h2>Manage your appointments</h2>
-  <a href='/dashboard'>Return to Dashboard</a>
-  <ul>
+  <a href={{linkDashboard}}>Return to Dashboard</a>
+  <ul class="appointment-container">
     {{{listAppointment}}}
   </ul>
 </main>

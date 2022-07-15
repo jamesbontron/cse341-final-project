@@ -71,6 +71,8 @@ routes.get('/manage-appointments', (req, res) => {
         res.render('manage-appointments', {
           title: 'Manage your appointments',
           listAppointment: listAppointments,
+          linkLogOut: '/admin/logout',
+          linkDashboard: '/admin',
           doctorId: req.user._id,
         });
       });
