@@ -116,10 +116,9 @@ label{
 }
 
 .admin-form{
-  display: table-caption;
-    /* justify-content: center; */
-    /* margin-bottom: 10; */
-  margin-top: -30;
+  justify-content: center;
+  margin-top: -20;
+  display: flow-root;
 }
 
 .login {
