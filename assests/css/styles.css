@@ -96,6 +96,11 @@ label{
   margin: 10px;
 }
 
+img#pacient-img{
+  max-width: 100%;
+  margin: 10px;
+}
+
 @media only screen and (min-width: 768px) {
   h1{
       font-size:xx-large;
