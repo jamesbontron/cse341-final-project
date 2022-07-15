@@ -19,7 +19,10 @@
     "swagger-ui-express": "^4.5.0"
   },
   "devDependencies": {
+    "@types/jest": "^28.1.5",
+    "jest": "^28.1.3",
     "nodemon": "^2.0.19",
+    "supertest": "^6.2.4",
     "swagger-autogen": "^2.21.5"
   },
   "name": "cse341-final-project",
@@ -28,7 +31,8 @@
   "scripts": {
     "test": "nodemon server.js",
     "start": "node server.js",
-    "swagger": "node swagger.js"
+    "swagger": "node swagger.js",
+    "test-jest": "jest"
   },
   "repository": {
     "type": "git",
