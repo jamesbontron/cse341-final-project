@@ -125,7 +125,7 @@ label{
     
   }
   
-  .content-unauthorized {
+.content-unauthorized {
     background: white;
     width: 380px;
     height: 480px;
@@ -136,26 +136,26 @@ label{
     align-items: center;
     justify-content: space-between;
     box-shadow: 0 3px 16px #222;
-  }
+}
   
-  .content-bottom {
+.content-bottom {
     margin: 20px 0;
-  }
+}
   
-  .content-unauthorized h1 {
+.content-unauthorized h1 {
     font-family: serif;
     font-size: 26px;
     margin: 32px auto 24px;
     line-height: 40px;
-  }
+}
   
-  .img-github {
+.img-github {
     margin-top: 32px;
     width: 160px;
     height: 160px;
-  }
+}
   
-  .btn {
+.btn {
     text-decoration: none;
     display: block;
     width: 220px;
@@ -167,16 +167,16 @@ label{
     margin: 0 auto;
     border: none;
     font-size: 14px;
-  }
-  .sign-in-text {
+}
+.sign-in-text {
     font-size: 14px;
     line-height: 22px;
   }
-  form{
+.appointment-form{
     margin-left: 50px;
     display: inline-grid;
     align-content: center;
-  }
+}
 .button {
   display: inline-block;
   padding: 0.75rem 1.25rem;
