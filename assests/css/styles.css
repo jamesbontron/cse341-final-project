@@ -115,6 +115,12 @@ label{
 
 }
 
+.admin-form{
+  display: table-caption;
+    /* justify-content: center; */
+    /* margin-bottom: 10; */
+  margin-top: -30;
+}
 
 .login {
     height: 100vh;
