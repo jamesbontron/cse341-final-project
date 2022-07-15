@@ -37,10 +37,10 @@ async function postData() {
     window.location.replace('/dashboard');
   } else {
     console.log(result.errors);
-    let msg = '';
+    let msg = '|';
     result.then((data) => {
       for (dato of data) {
-        msg += `| ${dato.msg} |`;
+        msg += ` ${dato.msg} |`;
       }
       alert(msg);
     });

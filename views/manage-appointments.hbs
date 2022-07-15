@@ -5,14 +5,12 @@
   </header>
   <nav>
         <ul>
-            <li><a href="/">Home</a><li>
+            <li><a href={{linkDashboard}}>Dashboard</a><li>
             <li><a href="/dashboard/add-appointment">Appointments</a><li>
-            <li><a href="/auth/admin">Admin login</a></li>
         </ul>
   </nav>
 <main>
   <h2>Manage your appointments</h2>
-  <a href={{linkDashboard}}>Return to Dashboard</a>
   <ul class="appointment-container">
     {{{listAppointment}}}
   </ul>
