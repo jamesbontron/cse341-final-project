@@ -204,4 +204,9 @@ img#pacient-img{
 .flex-admin{
   display: flex;
   margin: 10px;
+
+}
+img#img-admin{
+  max-width: 45%;
+  margin-left: 130
 }
