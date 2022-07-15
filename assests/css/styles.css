@@ -143,8 +143,8 @@ label{
 }
   
 .content-unauthorized h1 {
-    font-family: serif;
-    font-size: 26px;
+    font-family: 'Open Sans';
+    font-size: 30px;
     margin: 32px auto 24px;
     line-height: 40px;
 }
