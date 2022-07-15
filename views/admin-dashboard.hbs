@@ -12,10 +12,15 @@
     </nav>
   <main>
       <h1>Welcome, {{name}}</h1>
-      <p>Your role is: {{role}}</p>
-      <p>This is your admin dashboard.</p>
-      <p>Please, choose an action</p>
-      <p><a href='/admin/manage-appointments'>Manage Appointments</a></p>
+      <div class="flex-admin">
+        <div>
+            <h2>Your role is: {{role}}</h2>
+            <p>This is the Administrator dashboard.</p>
+            <p><a class="button" href='/admin/manage-appointments'>Manage Appointments</a></p>
+        </div>
+        <img id="img-admin" src="/images/administrator.jpg" alt="Doctor picture">
+      </div>
+      
   </main>
   <footer>
       <p>&copy; Medical Appointment Scheduler, All rights reserved.</p>

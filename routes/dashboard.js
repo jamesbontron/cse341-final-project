@@ -115,7 +115,7 @@ routes.get('/manage-appointments/:id', (req, res) => {
         required
       >${appointment.patientComments}</textarea>
       <input type='hidden' name='patientId' id='patientId' value=${appointment.patientId} />
-      <button type='button' onclick="putData('${appointment._id}', '${appointment.status}')">Update Appointment</button>`;
+      <button class='button' type='button' onclick="putData('${appointment._id}', '${appointment.status}')">Update Appointment</button>`;
       res.render('update-appointment', {
         title: 'Update your appointment',
         updateInputs: updateForm,
@@ -146,7 +146,7 @@ routes.get('/invoice/:appointmentId', (req, res) => {
           <p>Doctor: ${doc.displayName}<br />
           Patient: ${pat.displayName}</p>
           <p>Comments: ${document.doctorComments}</p>
-          <p>Price: $${document.price}  
+          <p id='price'>Price: $${document.price}</p>  
         `;
 
         res.render('invoice', {
