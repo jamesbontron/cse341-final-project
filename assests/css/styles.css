@@ -210,3 +210,9 @@ img#img-admin{
   max-width: 45%;
   margin-left: 130
 }
+.content-invoice{
+  margin-bottom: auto;
+}
+p#price{
+  font-size: 25px;
+}
