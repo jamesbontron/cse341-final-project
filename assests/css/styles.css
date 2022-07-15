@@ -201,3 +201,7 @@ img#pacient-img{
   z-index: 1;
   background: #75dfff;
   }
+.flex-admin{
+  display: flex;
+  margin: 10px;
+}
