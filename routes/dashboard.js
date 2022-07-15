@@ -146,7 +146,7 @@ routes.get('/invoice/:appointmentId', (req, res) => {
           <p>Doctor: ${doc.displayName}<br />
           Patient: ${pat.displayName}</p>
           <p>Comments: ${document.doctorComments}</p>
-          <p id='price'>Price: $${document.price}  
+          <p id='price'>Price: $${document.price}</p>  
         `;
 
         res.render('invoice', {
