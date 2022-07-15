@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@500&display=swap');
-html{
-    box-sizing: border-box;
+html {
+  box-sizing: border-box;
 }
 
 *,
@@ -10,101 +10,104 @@ html{
 }
 
 body {
-    font-family: 'Open Sans', sans-serif;
-    margin: 0;
-    background: rgb(21, 186, 245);
-    background: linear-gradient(0deg, rgb(21, 186, 245) 0%, rgb(25, 94, 121) 100%);
+  font-family: 'Open Sans', sans-serif;
+  margin: 0;
+  background: rgb(21, 186, 245);
+  background: linear-gradient(
+    0deg,
+    rgb(21, 186, 245) 0%,
+    rgb(25, 94, 121) 100%
+  );
 }
-body p{
-    margin-left: 0.5em;
+body p {
+  margin-left: 0.5em;
 }
 .page {
-    width: 100%;
-    background-color: white;
-    margin-left: auto;
-    margin-right: auto;
-    padding-bottom: 1em;
+  width: 100%;
+  background-color: white;
+  margin-left: auto;
+  margin-right: auto;
+  padding-bottom: 1em;
 }
 
 header {
-    padding: 20px;
+  padding: 20px;
 }
-header a{
-    color: #58286a;
-    float: right;
-    text-decoration: none;
-    padding-right: 10px;
-    font-size: 1.3em;
-
+header a {
+  color: #58286a;
+  float: right;
+  text-decoration: none;
+  padding-right: 10px;
+  font-size: 1.3em;
 }
 
 header img {
-    display: block;
-    float: left;
-    max-width: 13%;
-    margin-bottom: 4px;
+  display: block;
+  float: left;
+  max-width: 13%;
+  margin-bottom: 4px;
 }
 
 nav {
-    clear: both;
-    font-size: 100%;
+  clear: both;
+  font-size: 100%;
 }
 
 nav ul {
-    display: flex;
-    background-color: #58286a;
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    flex-wrap: wrap;
+  display: flex;
+  background-color: #58286a;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  flex-wrap: wrap;
 }
 
 nav li {
-    display: inline;
+  display: inline;
 }
 
 nav li a {
-    display: block;
-    color: #ffffff;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
+  display: block;
+  color: #ffffff;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
 }
 
 nav li a:hover {
-    background-color: #4c96d7;
-    color: #3a3a3a;
+  background-color: #4c96d7;
+  color: #3a3a3a;
 }
-footer{
-    margin-top: 1em;
-    text-align: center;
-    font-size: small;
-    border-top: 4px solid black;
+footer {
+  margin-top: 1em;
+  text-align: center;
+  font-size: small;
+  border-top: 4px solid black;
 }
-main h1{
-    margin-left: 0.25rem;
+main h1 {
+  margin-left: 0.25rem;
 }
 
-main img{
-    max-width: 100%;
+main img {
+  max-width: 100%;
 }
-form{
+form {
   margin-left: 15px;
 }
-label{
+label {
   margin: 10px;
 }
 
 @media only screen and (min-width: 768px) {
-  h1{
-      font-size:xx-large;
+  h1 {
+    font-size: xx-large;
   }
-  .text h2{
-      font-size: larger;
+  .text h2 {
+    font-size: larger;
   }
-  header a{
-      font-size: 1.5em;
+  header a {
+    font-size: 1.5em;
   }
   .page {
     border: 5px solid #4c96d7;
@@ -112,75 +115,73 @@ label{
     margin-top: 1em;
     width: 75%;
   }
-
 }
 
-.admin-form{
+.admin-form {
   justify-content: center;
   margin-top: -20;
   display: flow-root;
 }
 
 .login {
-    height: 100vh;
-    color: #222;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    
-  }
-  
+  height: 100vh;
+  color: #222;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .content-unauthorized {
-    background: white;
-    width: 380px;
-    height: 480px;
-    border-radius: 40px;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-    box-shadow: 0 3px 16px #222;
+  background: white;
+  width: 380px;
+  height: 480px;
+  border-radius: 40px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 3px 16px #222;
 }
-  
+
 .content-bottom {
-    margin: 20px 0;
+  margin: 20px 0;
 }
-  
+
 .content-unauthorized h1 {
-    font-family: 'Open Sans';
-    font-size: 30px;
-    margin: 32px auto 24px;
-    line-height: 40px;
+  font-family: 'Open Sans';
+  font-size: 30px;
+  margin: 32px auto 24px;
+  line-height: 40px;
 }
-  
+
 .img-github {
-    margin-top: 32px;
-    width: 160px;
-    height: 160px;
+  margin-top: 32px;
+  width: 160px;
+  height: 160px;
 }
-  
+
 .btn {
-    text-decoration: none;
-    display: block;
-    width: 220px;
-    line-height: 38px;
-    padding-top: 2px;
-    border-radius: 20px;
-    color: white;
-    background: rgba(71, 43, 186, 1);
-    margin: 0 auto;
-    border: none;
-    font-size: 14px;
+  text-decoration: none;
+  display: block;
+  width: 220px;
+  line-height: 38px;
+  padding-top: 2px;
+  border-radius: 20px;
+  color: white;
+  background: rgba(71, 43, 186, 1);
+  margin: 0 auto;
+  border: none;
+  font-size: 14px;
 }
 .sign-in-text {
-    font-size: 14px;
-    line-height: 22px;
-  }
-.appointment-form{
-    margin-left: 50px;
-    display: inline-grid;
-    align-content: center;
+  font-size: 14px;
+  line-height: 22px;
+}
+.appointment-form {
+  margin-left: 50px;
+  display: inline-grid;
+  align-content: center;
 }
 .button {
   display: inline-block;
@@ -189,10 +190,70 @@ label{
   color: rgb(0, 0, 0);
   text-transform: uppercase;
   font-size: 1rem;
-  letter-spacing: .15rem;
-  transition: all .3s;
+  letter-spacing: 0.15rem;
+  transition: all 0.3s;
   position: relative;
   overflow: hidden;
   z-index: 1;
   background: #75dfff;
-  }
+}
+
+.appointment-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.appointment-container > li {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  justify-content: center;
+  width: 22em;
+  height: 30em;
+  font-size: 1em;
+  padding: 1em;
+  margin: 0.5em;
+  background: #ccc;
+  text-align: center;
+  color: #3a3a3a;
+  border-radius: 2em;
+  gap: 0.5em;
+}
+
+.appointment-container > li a {
+  text-decoration: none;
+  display: inline-block;
+  padding: 0.75rem 1.25rem;
+  border-radius: 10rem;
+  color: rgb(0, 0, 0);
+  text-transform: uppercase;
+  font-size: 1rem;
+  letter-spacing: 0.15rem;
+  transition: all 0.3s;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  background: #4c96d7;
+}
+
+.appointment-container > li button {
+  text-decoration: none;
+  display: inline-block;
+  padding: 0.75rem 1.25rem;
+  border-radius: 10rem;
+  color: rgb(0, 0, 0);
+  text-transform: uppercase;
+  font-size: 1rem;
+  letter-spacing: 0.15rem;
+  transition: all 0.3s;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  background: #4c96d7;
+}
+
+.appointment-container > li p {
+  margin: 0.3em;
+}
