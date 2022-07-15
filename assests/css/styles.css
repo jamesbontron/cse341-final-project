@@ -177,3 +177,17 @@ label{
     display: inline-grid;
     align-content: center;
   }
+.button {
+  display: inline-block;
+  padding: 0.75rem 1.25rem;
+  border-radius: 10rem;
+  color: rgb(0, 0, 0);
+  text-transform: uppercase;
+  font-size: 1rem;
+  letter-spacing: .15rem;
+  transition: all .3s;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  background: #75dfff;
+  }
