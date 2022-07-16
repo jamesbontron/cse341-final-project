@@ -28,11 +28,11 @@ module.exports = function (passport) {
           user.then((document) => {
             if (document) {
               console.log('Existing');
-              done(null, user);
+              return done(null, document);
             } else {
               dbconnection.getPatient().insertOne(newPatient);
-              console.log('registered');
-              done(null, user);
+              console.log('Patient Registered');
+              return done(null, newPatient);
             }
           });
         } catch (error) {
@@ -51,7 +51,7 @@ module.exports = function (passport) {
           done(null, false);
         } else {
           if (username === admin.username && password === admin.password) {
-            return done(null, user);
+            return done(null, admin);
           } else {
             done(null, false);
           }
@@ -61,9 +61,7 @@ module.exports = function (passport) {
   );
 
   passport.serializeUser((user, done) => {
-    user.then((patient) => {
-      done(null, patient);
-    });
+    done(null, user);
   });
 
   passport.deserializeUser((id, done) => {

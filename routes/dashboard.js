@@ -4,7 +4,7 @@ const dbconnection = require('../model/dbconnection');
 const { ObjectId } = require('mongodb');
 
 routes.get('/', (req, res) => {
-  //console.log(req.user);
+  console.log(req.user);
   res.render('dashboard', {
     title: `Welcome to your dashboard ${req.user.firstName}`,
     name: req.user.displayName,
@@ -24,6 +24,7 @@ routes.get('/add-appointment', (req, res) => {
     res.render('add-form', {
       title: 'Add an appointment',
       select: selectDisplay,
+      linkLogOut: '/dashboard/logout',
       patientId: req.user._id,
     });
   });

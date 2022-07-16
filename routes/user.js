@@ -96,12 +96,12 @@ routes.put('/:id', (req, res) => {
     },
     {
       $set: {
-        googleID: req.body.googleID,
+        username: req.body.username,
         displayName: req.body.displayName,
         firstName: req.body.firstName,
         image: req.body.image,
         birth: req.body.birth,
-        createdAt: req.body.createdAt,
+        password: req.body.password,
         role: req.body.role,
       },
     }

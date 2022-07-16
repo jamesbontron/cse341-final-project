@@ -241,7 +241,7 @@
             "schema": {
               "type": "object",
               "properties": {
-                "googleID": {
+                "username": {
                   "example": "any"
                 },
                 "displayName": {
@@ -256,7 +256,7 @@
                 "birth": {
                   "example": "any"
                 },
-                "createdAt": {
+                "password": {
                   "example": "any"
                 },
                 "role": {
