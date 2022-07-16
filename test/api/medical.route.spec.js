@@ -11,6 +11,9 @@ const { MongoClient } = require('mongodb');
 const api = request(app);
 
 describe('Test Medical Appointment Scheduler API', () => {
+  let db;
+  let connection;
+
   beforeAll(async () => {
     connection = await MongoClient.connect(url, {
       useNewUrlParser: true,
