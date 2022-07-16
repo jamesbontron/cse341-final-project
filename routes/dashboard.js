@@ -1,4 +1,5 @@
 const routes = require('express').Router();
+const createError = require('http-errors');
 const dbconnection = require('../model/dbconnection');
 const { ObjectId } = require('mongodb');
 
@@ -134,6 +135,16 @@ routes.get('/invoice/:appointmentId', (req, res) => {
 
   invoice.then((document) => {
     console.log(document);
+
+    if (!ObjectId.isValid(document.doctorId)) {
+      const error = createError(400, 'Invalid Doctor Id provided');
+      return res.status(error.status).send(error).redirect('/dashboard');
+    }
+    if (!ObjectId.isValid(document.patientId)) {
+      const error = createError(400, 'Invalid Patient Id provided');
+      return res.status(error.status).send(error).redirect('/dashboard');
+    }
+
     const doctorId = new ObjectId(document.doctorId);
     const patientId = new ObjectId(document.patientId);
     const doctor = dbconnection.getUser().findOne({ _id: doctorId });

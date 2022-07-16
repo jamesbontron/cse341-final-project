@@ -1,4 +1,5 @@
 const routes = require('express').Router();
+const createError = require('http-errors');
 const dbconnection = require('../model/dbconnection');
 const { ObjectId } = require('mongodb');
 
@@ -207,28 +208,42 @@ routes.get('/invoice/:appointmentId', (req, res) => {
 
   invoice.then((document) => {
     console.log(document);
-    const doctorId = new ObjectId(document.doctorId);
-    const patientId = new ObjectId(document.patientId);
-    const doctor = dbconnection.getUser().findOne({ _id: doctorId });
-    const appointmentDate = `Date: ${document.date} - Hour: ${document.hour}`;
-    doctor.then((doc) => {
-      const patient = dbconnection.getPatient().findOne({ _id: patientId });
+    if (document) {
+      if (!ObjectId.isValid(document.doctorId)) {
+        const error = createError(400, 'Invalid Doctor Id provided');
+        return res.status(error.status).redirect('/dashboard');
+      }
+      if (!ObjectId.isValid(document.patientId)) {
+        const error = createError(400, 'Invalid Patient Id provided');
+        return res.status(error.status).redirect('/dashboard');
+      }
 
-      patient.then((pat) => {
-        let appointmentInfo = `
+      const doctorId = new ObjectId(document.doctorId);
+      const patientId = new ObjectId(document.patientId);
+      const doctor = dbconnection.getUser().findOne({ _id: doctorId });
+      const appointmentDate = `Date: ${document.date} - Hour: ${document.hour}`;
+      doctor.then((doc) => {
+        const patient = dbconnection.getPatient().findOne({ _id: patientId });
+
+        patient.then((pat) => {
+          let appointmentInfo = `
           <p>Doctor: ${doc.displayName}<br />
           Patient: ${pat.displayName}</p>
           <p>Comments: ${document.doctorComments}</p>
           <p>Price: $${document.price}  
         `;
 
-        res.render('invoice', {
-          title: 'Medical Invoice',
-          appointmentDate: appointmentDate,
-          appointmentInfo: appointmentInfo,
+          res.render('invoice', {
+            title: 'Medical Invoice',
+            appointmentDate: appointmentDate,
+            appointmentInfo: appointmentInfo,
+          });
         });
       });
-    });
+    } else {
+      const error = createError(400, 'Invalid appointmet Id provided');
+      return res.status(error.status).redirect('/admin/manage-appointments');
+    }
   });
 });
 

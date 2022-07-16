@@ -19,7 +19,8 @@
     "swagger-ui-express": "^4.5.0"
   },
   "devDependencies": {
-    "@types/jest": "^28.1.5",
+    "@types/jest": "^28.1.6",
+    "ejst": "^1.0.2",
     "jest": "^28.1.3",
     "nodemon": "^2.0.19",
     "supertest": "^6.2.4",
@@ -32,7 +33,8 @@
     "test": "nodemon server.js",
     "start": "node server.js",
     "swagger": "node swagger.js",
-    "test-jest": "jest"
+    "test-jest": "jest --verbose --silent",
+    "test-jest:watch": "npm run test -- --watch"
   },
   "repository": {
     "type": "git",

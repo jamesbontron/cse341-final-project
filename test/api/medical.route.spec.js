@@ -1,24 +1,29 @@
 const request = require('supertest');
-const app = require('../../routes');
-const dbconnection = require('../../model/dbconnection');
-//Connection to a database
-dbconnection.connectDatabase();
+const app = require('../../app');
+// Enviroment variables config
+const dotenv = require('dotenv');
 
-describe('Test the medical API', () => {
+dotenv.config();
+const url = process.env.MONGODB_URL;
+// Database Variables
+const { MongoClient } = require('mongodb');
 
-    describe('GET /invoice', () => {
-        let response;
-        beforeEach(async () => {
-            response = await request(app).get('/invoice').send();
-        })
+const api = request(app);
 
-        it('Invoice route works', async () => {
-            expect(response.status).toBe(200);
-            //expect(response.headers['content-type']).toContain('json');
-        });
-        
-        it('Array of invoices', async () => {
-            expect(response.body).toBeInstanceOf(Array);
-        });
+describe('Test Medical Appointment Scheduler API', () => {
+  beforeAll(async () => {
+    connection = await MongoClient.connect(url, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
     });
-})
+    db = await connection.db('medical_record');
+  });
+
+  afterAll(async () => {
+    await connection.close();
+  });
+
+  it('GET /invoice 200 OK', async () => {
+    await api.get('/invoice').expect(200);
+  });
+});

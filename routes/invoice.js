@@ -1,6 +1,6 @@
 const routes = require('express').Router();
 const { ObjectId } = require('mongodb');
-//const createError = require('http-errors');
+const createError = require('http-errors');
 //const { userValidation, results } = require('../validation');
 
 const dbconnection = require('../model/dbconnection');
@@ -29,12 +29,12 @@ routes.get('/', (req, res) => {
 
   invoice.toArray().then((documents) => {
     res.status(200).json(documents);
-    console.log('All users shown');
+    //console.log('All users shown');
   });
 });
 
 // Create an Invoice
-routes.post('/',invoiceValidation,(req, res) => {
+routes.post('/', invoiceValidation, (req, res) => {
   /*const result = results(req);
   if (!result.isEmpty()) {
     const errors = result.array();
@@ -63,10 +63,10 @@ routes.post('/',invoiceValidation,(req, res) => {
 // Get an invoice by Id
 routes.get('/:id', (req, res) => {
   const passedId = req.params.id;
-  /*if (!ObjectId.isValid(passedId)) {
+  if (!ObjectId.isValid(passedId)) {
     const error = createError(400, 'Invalid Id provided');
     return res.status(error.status).send(error);
-  }*/
+  }
   const invoiceId = new ObjectId(passedId);
 
   const invoice = dbconnection.getInvoice().findOne({ _id: invoiceId });

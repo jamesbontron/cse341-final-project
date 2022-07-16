@@ -48,3 +48,5 @@ app.use(bodyParser.json()).use('/', require('./routes'));
 app.listen(port, () => {
   console.log(`Running on Port ${port}`);
 });
+
+module.exports = app;
