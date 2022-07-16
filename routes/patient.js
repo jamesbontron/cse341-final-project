@@ -1,6 +1,6 @@
 const routes = require('express').Router();
 const { ObjectId } = require('mongodb');
-//const createError = require('http-errors');
+const createError = require('http-errors');
 const { patientValidation, results } = require('../validation');
 
 const dbconnection = require('../model/dbconnection');
@@ -33,12 +33,12 @@ routes.get('/', (req, res) => {
 });
 
 // Create a patient
-routes.post('/',patientValidation, (req, res) => {
-  /*const result = results(req);
+routes.post('/', patientValidation, (req, res) => {
+  const result = results(req);
   if (!result.isEmpty()) {
     const errors = result.array();
     return res.status(400).json(errors);
-  }*/
+  }
 
   const patient = dbconnection.getPatient().insertOne({
     googleID: req.body.googleID,
@@ -52,7 +52,7 @@ routes.post('/',patientValidation, (req, res) => {
 
   patient.then((document) => {
     if (!document.insertedId) return res.status(404).send(`No user was added`);
-    res.status(201).redirect(`/patient/${document.insertedId}`);
+    res.status(201).json(document.insertedId);
     console.log(`User was created with id: ${document.insertedId}`);
   });
 });
@@ -60,10 +60,10 @@ routes.post('/',patientValidation, (req, res) => {
 // Get a patient by Id
 routes.get('/:id', (req, res) => {
   const passedId = req.params.id;
-  /*if (!ObjectId.isValid(passedId)) {
+  if (!ObjectId.isValid(passedId)) {
     const error = createError(400, 'Invalid Id provided');
     return res.status(error.status).send(error);
-  }*/
+  }
   const patientId = new ObjectId(passedId);
 
   const patient = dbconnection.getPatient().findOne({ _id: patientId });
@@ -79,18 +79,18 @@ routes.get('/:id', (req, res) => {
 // Update a patient by Id
 routes.put('/:id', (req, res) => {
   const passedId = req.params.id;
-  /*if (!ObjectId.isValid(passedId)) {
+  if (!ObjectId.isValid(passedId)) {
     const error = createError(400, 'Invalid Id provided');
     return res.status(error.status).send(error);
-  }*/
+  }
   const patientId = new ObjectId(passedId);
-  /*
+
   const result = results(req);
   if (!result.isEmpty()) {
     const errors = result.array();
     return res.status(400).json(errors);
   }
-*/
+
   const patient = dbconnection.getPatient().updateOne(
     {
       _id: patientId,
@@ -125,10 +125,10 @@ routes.put('/:id', (req, res) => {
 // Delete a patient by Id
 routes.delete('/:id', (req, res) => {
   const passedId = req.params.id;
-  /*if (!ObjectId.isValid(passedId)) {
+  if (!ObjectId.isValid(passedId)) {
     const error = createError(400, 'Invalid Id provided');
     return res.status(error.status).send(error);
-  }*/
+  }
   const patientId = new ObjectId(passedId);
   const patient = dbconnection.getPatient().deleteOne({ _id: patientId });
 

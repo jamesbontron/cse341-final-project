@@ -1,10 +1,8 @@
 const routes = require('express').Router();
 const { ObjectId } = require('mongodb');
-//const createError = require('http-errors');
-//const { userValidation, results } = require('../validation');
-
+const createError = require('http-errors');
+const { userValidation, results } = require('../validation');
 const dbconnection = require('../model/dbconnection');
-const { userValidation } = require('../validation');
 
 routes.use((req, res, next) => {
   res.setHeader(
@@ -53,7 +51,7 @@ routes.post('/', userValidation, (req, res) => {
 
   user.then((document) => {
     if (!document.insertedId) return res.status(404).send(`No user was added`);
-    res.status(201).redirect(`/user/${document.insertedId}`);
+    res.status(201).json(document.insertedId);
     console.log(`User was created with id: ${document.insertedId}`);
   });
 });

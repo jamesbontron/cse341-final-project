@@ -1,10 +1,8 @@
 const routes = require('express').Router();
 const { ObjectId } = require('mongodb');
 const createError = require('http-errors');
-//const { userValidation, results } = require('../validation');
-
+const { invoiceValidation, results } = require('../validation');
 const dbconnection = require('../model/dbconnection');
-const { invoiceValidation } = require('../validation');
 
 routes.use((req, res, next) => {
   res.setHeader(
@@ -35,11 +33,11 @@ routes.get('/', (req, res) => {
 
 // Create an Invoice
 routes.post('/', invoiceValidation, (req, res) => {
-  /*const result = results(req);
+  const result = results(req);
   if (!result.isEmpty()) {
     const errors = result.array();
     return res.status(400).json(errors);
-  }*/
+  }
 
   const invoice = dbconnection.getInvoice().insertOne({
     date: req.body.date,
@@ -55,7 +53,7 @@ routes.post('/', invoiceValidation, (req, res) => {
   invoice.then((document) => {
     if (!document.insertedId)
       return res.status(404).send(`No invoice was added`);
-    res.status(201).redirect(`/invoice/${document.insertedId}`);
+    res.status(201).json(document.insertedId);
     console.log(`Invoice was created with id: ${document.insertedId}`);
   });
 });

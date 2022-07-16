@@ -53,7 +53,7 @@ routes.post('/', appointmentValidation, (req, res) => {
   appointment.then((document) => {
     if (!document.insertedId)
       return res.status(404).send(`No appointment was added`);
-    res.status(201).json(document);
+    res.status(201).json(document.insertedId);
     console.log(`appointment was created with id: ${document.insertedId}`);
   });
 });
